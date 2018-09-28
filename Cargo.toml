@@ -4,4 +4,7 @@ version = "0.1.0"
 authors = ["Inokentiy Babushkin <twk@twki.de>"]
 edition = "2018"
 
-[dependencies]
+[dependencies.goblin]
+version = "0.0.17"
+default-features = false
+features = ["std", "elf32", "elf64", "archive", "endian_fd"]
