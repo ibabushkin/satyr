@@ -4,6 +4,9 @@ version = "0.1.0"
 authors = ["Inokentiy Babushkin <twk@twki.de>"]
 edition = "2018"
 
+[dependencies]
+memmap = "0.7.0"
+
 [dependencies.goblin]
 version = "0.0.17"
 default-features = false
