@@ -8,6 +8,7 @@ use std::{error, io};
 pub enum Error {
     Goblin(goblin::error::Error),
     IO(io::Error),
+    UnsupportedPlatform,
 }
 
 impl Error {
@@ -15,6 +16,7 @@ impl Error {
         match *self {
             Error::Goblin(ref e) => e.description(),
             Error::IO(ref e) => std::error::Error::description(e),
+            Error::UnsupportedPlatform => "An ELF file's platform is not supported",
         }
     }
 }
@@ -28,6 +30,7 @@ impl error::Error for Error {
         match *self {
             Error::Goblin(ref e) => e.cause(),
             Error::IO(ref e) => e.cause(),
+            Error::UnsupportedPlatform => None,
         }
     }
 }
@@ -49,6 +52,7 @@ impl Display for Error {
         match *self {
             Error::Goblin(ref e) => write!(fmt, "Goblin error: {}", e),
             Error::IO(ref e) => write!(fmt, "IO error: {}", e),
+            Error::UnsupportedPlatform => write!(fmt, "Unsupported platform of object file"),
         }
     }
 }
