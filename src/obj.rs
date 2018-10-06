@@ -37,8 +37,11 @@ impl<'a> MappedElf<'a> {
 
     fn check_support(elf: &elf::Elf) -> bool {
         // check that we deal with x86_64
-        if elf.header.e_type != elf::header::ELFCLASS64.into() ||
-                elf.header.e_machine != elf::header::EM_386 {
+        if !(elf.header.e_ident[elf::header::EI_CLASS] == elf::header::ELFCLASS64 &&
+                elf.header.e_ident[elf::header::EI_DATA] == elf::header::ELFDATA2LSB &&
+                elf.header.e_type == elf::header::ET_REL &&
+                elf.header.e_machine == elf::header::EM_X86_64) {
+             /* e_ident[E_OSABI] == 0x03 for Linux ABI? */
             return false;
         }
 
